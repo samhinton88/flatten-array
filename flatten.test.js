@@ -13,6 +13,10 @@ describe("flatten", () => {
     expect(flatten([[[[[[[[[[[[[[]]]]]]]]]]][[[[[[[]]]]]]]]]])).toEqual([])
   })
 
+  it("ignores further arguments", () => {
+    expect(flatten([1, [2, [3, [4, [5]]]]], { some: 'garbage' })).toEqual([1, 2, 3, 4, 5]);
+  });
+
   it("throws on non-aray input", () => {
     expect(() => flatten("whups")).toThrow()
     expect(() => flatten(null)).toThrow()

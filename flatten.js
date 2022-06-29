@@ -1,17 +1,23 @@
-const flatten = (item, memo=[], calls=0) => {
-  if (calls === 0 && !Array.isArray(item)) {
-    throw new Error('TypeError')
-  } 
-  
-  if (Array.isArray(item)) {
-      for (const subItem of item) {
-        flatten(subItem, memo, calls + 1)
-      }
-  } else { 
-      memo.push(item)
+const flatten = (array) => {
+  if (!Array.isArray(array)) {
+    throw new Error("TypeError: argument to flatten must be an array");
   }
 
-  return memo
-}
+  const memo = [];
+
+  const gatherElements = (item) => {
+    if (Array.isArray(item)) {
+      for (const subItem of item) {
+        gatherElements(subItem);
+      }
+    } else {
+      memo.push(item);
+    }
+  };
+
+  gatherElements(array);
+
+  return memo;
+};
 
 module.exports = flatten;
